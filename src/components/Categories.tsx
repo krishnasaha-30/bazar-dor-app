@@ -8,7 +8,7 @@ import Link from "next/link";
 };
 const Categories = async ({ activeSlug = "" }) => {
     const res = await fetch(
-        "https://api.api-store.workers.dev/api/bazardor/categories"
+        "https://api.abcz.workers.dev/api/bazardor/categories"
     );
 
     const categories = await res.json();

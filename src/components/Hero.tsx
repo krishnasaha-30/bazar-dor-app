@@ -8,9 +8,9 @@ export default function Hero() {
         const currentDate = new Date().toLocaleDateString("bn-BD", {
             dateStyle: "full",
         });
-       
+
         setDate(currentDate);
-    }, []); 
+    }, []);
     return (
         <section className="rounded-xl mx-auto grid max-w-6xl px-6  md:grid-cols-2 md:py-6 bg-white mt-5">
             <div className="flex flex-col gap-4 ">

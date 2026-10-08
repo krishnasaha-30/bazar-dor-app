@@ -23,7 +23,7 @@ type Product = {
 
 
 const Marquee = async () => {
-    const res = await fetch("https://api.api-store.workers.dev/api/bazardor/products");
+    const res = await fetch("https://api.abcz.workers.dev/api/bazardor/products");
     const products = await res.json();
     return (
         <div className="border-y border-base-300 bg-neutral py-2 text-sm text-neutral-content">

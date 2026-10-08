@@ -1,35 +1,140 @@
 
 
-export type MarketPrice = {
+export interface Market {
     market: string;
-    price: number;
-    change: number;
-};
-
-export type Product = {
-    id: string;
-    slug: string;
-    name: string;
-    emoji: string;
-    unit: string;
-    price: number;
-    change: number; // percent, +up / -down
-    category: string;
-    description: string;
+    division: string;
     min: number;
     max: number;
-    avg: number;
-    markets: MarketPrice[];
-};
+}
 
-export type Category = {
+export interface PriceChange {
+    dir: "up" | "down";
+    pct: number;
+}
+
+export interface Product {
+    id: number;
     slug: string;
-    name: string;
-    icon: string;
+    nameBn: string;
+    category: string;
+    categoryNameBn: string;
+    categoryIcon: string;
+    unit: string;
+    image: string;
+    today: number;
+    yesterday: number;
+    lastWeek: number;
+    lastMonth: number;
+    change: PriceChange;
+    markets: Market[];
+}
+
+
+const getProducts = async () => {
+    const response = await fetch(
+        "https://api.abcz.workers.dev/api/bazardor/products",
+        {
+            next: {
+                revalidate: 300,
+            },
+        }
+    );
+    const json = await response.json();
+    return json;
 };
+export default getProducts;
 
 
-
+// "id": 1,
+// "slug": "sorno-machi-chal",
+// "nameBn": "স্বর্ণমাছি চাল",
+// "category": "chal",
+// "categoryNameBn": "চাল",
+// "categoryIcon": "🍚",
+// "unit": "kg",
+// "image": "🍚",
+// "today": 148,
+// "yesterday": 145,
+// "lastWeek": 142,
+// "lastMonth": 138,
+// "change": {
+// "dir": "up",
+// "pct": 2.1
+// },
+// "markets": [
+// {
+// "market": "কারওয়ান বাজার",
+// "division": "ঢাকা",
+// "min": 146,
+// "max": 165
+// },
+// {
+// "market": "গ্রীন মার্কেট, মিরপুর",
+// "division": "ঢাকা",
+// "min": 143,
+// "max": 159
+// },
+// {
+// "market": "চৌদগ্রাম বাজার",
+// "division": "চট্টগ্রাম",
+// "min": 142,
+// "max": 163
+// },
+// {
+// "market": "আমতলী বাজার",
+// "division": "চট্টগ্রাম",
+// "min": 138,
+// "max": 155
+// },
+// {
+// "market": "সদর বাজার",
+// "division": "রাজশাহী",
+// "min": 134,
+// "max": 148
+// },
+// {
+// "market": "বাসারহাট বাজার",
+// "division": "রাজশাহী",
+// "min": 135,
+// "max": 152
+// },
+// {
+// "market": "মাঠ বাজার",
+// "division": "ময়মনসিংহ",
+// "min": 132,
+// "max": 146
+// },
+// {
+// "market": "চৌর বাজার",
+// "division": "ময়মনসিংহ",
+// "min": 135,
+// "max": 155
+// },
+// {
+// "market": "বাজারহাট",
+// "division": "খুলনা",
+// "min": 134,
+// "max": 151
+// },
+// {
+// "market": "ডবলগেট বাজার",
+// "division": "খুলনা",
+// "min": 139,
+// "max": 154
+// },
+// {
+// "market": "আমবাজার",
+// "division": "সিলেট",
+// "min": 143,
+// "max": 165
+// },
+// {
+// "market": "চৌরাস্তা বাজার",
+// "division": "সিলেট",
+// "min": 141,
+// "max": 158
+// }
+// ]
 
 
 
