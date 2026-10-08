@@ -1,8 +1,20 @@
-import React from 'react';
+
+"use client";
 import Image from 'next/image';
 import Link from 'next/link';
+import { useEffect, useState } from "react";
+
+
 const Header = () => {
-    const date = new Date().toLocaleDateString('bn-BD', { dateStyle: 'full' });
+    const [date, setDate] = useState("");
+
+    useEffect(() => {
+        const currentDate = new Date().toLocaleDateString("bn-BD", {
+            dateStyle: "full",
+        });
+       
+        setDate(currentDate);
+    }, []);
     return (
         <div className="border-b border-black/10">
             <div className="mx-auto flex max-w-6xl items-center justify-between gap-3 px-4 py-3 ">

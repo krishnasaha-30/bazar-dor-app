@@ -5,6 +5,8 @@ import { Toaster } from "react-hot-toast";
 import { Noto_Serif_Bengali } from "next/font/google";
 import Header from "@/components/Header";
 import Categories from "@/components/Categories";
+import Marquee from "@/components/Marquee";
+import { Suspense } from "react";
 const notoSerifBengali = Noto_Serif_Bengali({
   subsets: ["latin", "bengali"],
 });
@@ -27,8 +29,36 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       className={`${notoSerifBengali.className} scroll-smooth`}
     >
       <body>
-        <Header/>
-        <Categories/>
+        <Header />
+        <Suspense
+          fallback={
+            <div className="mx-auto max-w-6xl overflow-hidden px-4 py-3">
+              <div className="flex gap-3">
+                {[1, 2, 3, 4, 5, 6].map((item) => (
+                  <div
+                    key={item}
+                    className="h-9 w-24 shrink-0 animate-pulse rounded-full bg-gray-200"
+                  />
+                ))}
+              </div>
+            </div>
+          }
+        >
+          <Categories />
+        </Suspense>
+        <Suspense
+          fallback={
+            <div className="border-b border-black/10 py-2">
+              <div className="mx-auto max-w-6xl px-4">
+                <span className="text-sm text-gray-500">
+                  বাজার দর লোড হচ্ছে...
+                </span>
+              </div>
+            </div>
+          }
+        >
+          <Marquee />
+        </Suspense>
         <main>{children}</main>
         <Toaster position="top-center" />
       </body>
