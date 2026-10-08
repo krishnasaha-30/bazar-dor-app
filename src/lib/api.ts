@@ -29,19 +29,70 @@ export interface Product {
     markets: Market[];
 }
 
+export interface Category {
+    id: string;
+    slug: string;
+    nameBn: string;
+    icon: string;
+}
 
-const getProducts = async () => {
+const API_BASE_URL = "https://api.abcz.workers.dev/api/bazardor";
+
+export async function getProducts(): Promise<Product[]> {
+    const response = await fetch(`${API_BASE_URL}/products`, {
+        next: {
+            revalidate: 300,
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Could not load products: ${response.status}`);
+    }
+    return response.json();
+}
+
+export async function getProductsByCategory(slug: string): Promise<Product[]> {
     const response = await fetch(
-        "https://api.abcz.workers.dev/api/bazardor/products",
+        `${API_BASE_URL}/products?category=${encodeURIComponent(slug)}`,
         {
             next: {
                 revalidate: 300,
             },
         }
     );
-    const json = await response.json();
-    return json;
-};
+    if (!response.ok) {
+        throw new Error(`Could not load products for category "${slug}": ${response.status}`);
+    }
+    return response.json();
+}
+
+export async function getCategories(): Promise<Category[]> {
+    const response = await fetch(`${API_BASE_URL}/categories`, {
+        next: {
+            revalidate: 300,
+        },
+    });
+    if (!response.ok) {
+        throw new Error(`Could not load categories: ${response.status}`);
+    }
+    return response.json();
+}
+
+export async function getCategory(slug: string): Promise<Category | null> {
+    const response = await fetch(
+        `${API_BASE_URL}/categories/${encodeURIComponent(slug)}`,
+        {
+            next: {
+                revalidate: 300,
+            },
+        }
+    );
+    if (response.status === 404) return null;
+    if (!response.ok) {
+        throw new Error(`Could not load category "${slug}": ${response.status}`);
+    }
+    return response.json();
+}
+
 export default getProducts;
 
 
@@ -135,7 +186,6 @@ export default getProducts;
 // "max": 158
 // }
 // ]
-
 
 
 
