@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 
 const Header = () => {
-    const [date, setDate] = useState("");
+    const [date, setDate] = useState<string>("");
 
     useEffect(() => {
         const currentDate = new Date().toLocaleDateString("bn-BD", {
