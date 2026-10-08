@@ -3,8 +3,9 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import { Noto_Serif_Bengali } from "next/font/google";
+import Header from "@/components/Header";
+import Categories from "@/components/Categories";
 const notoSerifBengali = Noto_Serif_Bengali({
-
   subsets: ["latin", "bengali"],
 });
 
@@ -25,7 +26,9 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
       data-theme="light"
       className={`${notoSerifBengali.className} scroll-smooth`}
     >
-      <body className="min-h-full flex flex-col">
+      <body>
+        <Header/>
+        <Categories/>
         <main>{children}</main>
         <Toaster position="top-center" />
       </body>
