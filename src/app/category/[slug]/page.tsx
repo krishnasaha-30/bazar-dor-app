@@ -17,7 +17,7 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
   if (!category) notFound();
 
   return (
-    <div className="min-h-screen bg-[#f1f6f2] px-4 py-8 sm:py-10">
+    <main className="min-h-screen bg-[#f1f6f2] px-4 py-8 sm:py-10">
       <div className="mx-auto max-w-6xl">
         <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="flex items-center gap-4">
@@ -43,6 +43,6 @@ export default async function CategoryPage({ params }: CategoryPageProps) {
           <CategoryProductList products={products} />
         </section>
       </div>
-    </div>
+    </main>
   );
 }

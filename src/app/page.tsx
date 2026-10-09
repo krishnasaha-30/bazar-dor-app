@@ -1,10 +1,6 @@
-import Image from "next/image";
-import Link from "next/link";
-import logo from "@/assets/logo-icon.png";
 import Hero from "@/components/Hero";
-import getProducts from "@/lib/api";
+import getProducts, { type Product } from "@/lib/api";
 import ProductGrid from "@/components/ProductGrid";
-import { Product } from "@/lib/api";
 
 // "id": 1,
 // "slug": "sorno-machi-chal",
@@ -28,19 +24,18 @@ export default async function Home() {
   const products = await getProducts();
   const risers = products
     .filter((p: Product) => p.change.dir === "up")
-    .sort((a: Product, b: Product) => b.change.pct - a.change.pct)
+    .sort((a, b) => b.change.pct - a.change.pct)
     .slice(0, 6);
   const fallers = products
     .filter((p: Product) => p.change.dir === "down")
-    .sort((a: Product, b: Product) => a.change.pct - b.change.pct)
+    .sort((a, b) => a.change.pct - b.change.pct)
     .slice(0, 6);
-  console.log("All products from home page", products);
   return (
-    <div className=" bg-base-300 pt-5 grid gap-5">
+    <main className="grid gap-5 bg-base-300 pb-8 pt-1 sm:pb-12">
       <Hero />
-      <div className="mx-auto max-w-6xl space-y-14 px-4 mt-5">
+      <div className="mx-auto mt-2 w-full max-w-6xl space-y-10 px-4 sm:mt-5 sm:space-y-14">
         <section>
-          <h2 className="mb-5 text-2xl font-bold text-success">আজ দাম বেড়েছে ▲</h2>
+          <h2 className="mb-4 text-xl font-bold text-success sm:mb-5 sm:text-2xl">আজ দাম বেড়েছে ▲</h2>
           {risers.length ? (
             <ProductGrid products={risers} />
           ) : (
@@ -49,7 +44,7 @@ export default async function Home() {
         </section>
 
         <section>
-          <h2 className="mb-5 text-2xl font-bold text-error">আজ দাম কমেছে ▼</h2>
+          <h2 className="mb-4 text-xl font-bold text-error sm:mb-5 sm:text-2xl">আজ দাম কমেছে ▼</h2>
           {fallers.length ? (
             <ProductGrid products={fallers} />
           ) : (
@@ -58,8 +53,8 @@ export default async function Home() {
         </section>
 
         <section id="সব-পণ্য" className="scroll-mt-32">
-          <h2 className="text-2xl font-bold">সব পণ্য</h2>
-          <p className="mb-5 mt-1 text-base-content/70">
+          <h2 className="text-xl font-bold sm:text-2xl">সব পণ্য</h2>
+          <p className="mb-5 mt-1 text-sm leading-6 text-base-content/70 sm:text-base">
             নিত্যপ্রয়োজনীয় সব পণ্যের আজকের দাম ও দামের পরিবর্তন।
           </p>
           {products.length ? (
@@ -69,6 +64,6 @@ export default async function Home() {
           )}
         </section>
       </div>
-    </div>
+    </main>
   )
 }

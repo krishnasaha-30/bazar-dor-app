@@ -73,12 +73,12 @@ export default async function ProductPage({ params }: ProductPageProps) {
         </nav>
 
         <section className="flex flex-col gap-5 rounded-2xl border border-[#e3ebe4] bg-white p-5 shadow-sm sm:flex-row sm:items-center sm:justify-between sm:p-6">
-          <div className="flex items-center gap-4">
-            <div className="flex size-16 shrink-0 items-center justify-center rounded-2xl bg-[#f1f6f2] text-4xl">
+          <div className="flex min-w-0 items-start gap-3 sm:items-center sm:gap-4">
+            <div className="flex size-12 shrink-0 items-center justify-center rounded-2xl bg-[#f1f6f2] text-3xl sm:size-16 sm:text-4xl">
               {product.image}
             </div>
-            <div>
-              <h1 className="text-2xl font-bold sm:text-3xl">{product.nameBn}</h1>
+            <div className="min-w-0">
+              <h1 className="break-words text-xl font-bold sm:text-3xl">{product.nameBn}</h1>
               <p className="mt-1 text-sm text-slate-500">
                 {formatUnit(product.unit)} <span className="mx-1">·</span>{" "}
                 {product.markets.length}টি বাজারের তথ্য
@@ -87,7 +87,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
                 <span className="rounded-full bg-green-50 px-3 py-1 text-xs font-medium text-green-800">
                   {product.categoryIcon} {product.categoryNameBn}
                 </span>
-                <span className="text-sm text-slate-500">
+                <span className="text-xs leading-relaxed text-slate-500 sm:text-sm">
                   বিভিন্ন বাজারের আজকের দামের সারসংক্ষেপ
                 </span>
               </div>
@@ -106,7 +106,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
           </div>
         </section>
 
-        <section className="mt-5 rounded-2xl border border-[#e3ebe4] bg-white p-5 shadow-sm sm:p-6">
+        <section className="mt-5 rounded-2xl border border-[#e3ebe4] bg-white p-4 shadow-sm sm:p-6">
           <h2 className="mb-4 text-lg font-bold">দামের সারসংক্ষেপ</h2>
           <div className="grid gap-3 sm:grid-cols-3">
             <PriceSummary label="সর্বনিম্ন দাম" price={minPrice} tone="green" unit={product.unit} />
@@ -117,34 +117,67 @@ export default async function ProductPage({ params }: ProductPageProps) {
           <div className="mt-6">
             <h2 className="mb-3 text-lg font-bold">বাজারভিত্তিক আজকের দাম</h2>
             {product.markets.length ? (
-              <div className="overflow-x-auto rounded-2xl border border-[#e4eae5]">
-                <table className="w-full min-w-[680px] border-collapse text-left text-sm">
-                  <thead className="bg-[#f5f8f5] text-slate-600">
-                    <tr>
-                      <th scope="col" className="px-4 py-3 font-semibold">বাজার</th>
-                      <th scope="col" className="px-4 py-3 font-semibold">বিভাগ</th>
-                      <th scope="col" className="px-4 py-3 text-right font-semibold">সর্বনিম্ন</th>
-                      <th scope="col" className="px-4 py-3 text-right font-semibold">সর্বোচ্চ</th>
-                      <th scope="col" className="px-4 py-3 text-right font-semibold">গড়</th>
-                    </tr>
-                  </thead>
-                  <tbody className="divide-y divide-[#e8ede9]">
-                    {product.markets.map((market) => (
-                      <tr key={`${market.market}-${market.division}`} className="hover:bg-[#fafcfa]">
-                        <th scope="row" className="px-4 py-3 font-medium text-slate-800">
-                          {market.market}
-                        </th>
-                        <td className="px-4 py-3 text-slate-600">{market.division}</td>
-                        <td className="px-4 py-3 text-right">{formatPrice(market.min)}</td>
-                        <td className="px-4 py-3 text-right">{formatPrice(market.max)}</td>
-                        <td className="px-4 py-3 text-right font-semibold">
-                          {formatPrice((market.min + market.max) / 2)}
-                        </td>
+              <>
+                <div className="grid gap-3 md:hidden">
+                  {product.markets.map((market) => (
+                    <article
+                      key={`${market.market}-${market.division}`}
+                      className="rounded-xl border border-[#e4eae5] bg-[#fbfdfb] p-4"
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <h3 className="font-semibold text-slate-800">{market.market}</h3>
+                        <span className="rounded-full bg-[#f1f6f2] px-2.5 py-1 text-xs text-slate-600">
+                          {market.division}
+                        </span>
+                      </div>
+                      <dl className="mt-3 grid grid-cols-3 gap-2 text-xs sm:text-sm">
+                        <div>
+                          <dt className="text-slate-500">সর্বনিম্ন</dt>
+                          <dd className="mt-1 font-semibold">{formatPrice(market.min)}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-slate-500">সর্বোচ্চ</dt>
+                          <dd className="mt-1 font-semibold">{formatPrice(market.max)}</dd>
+                        </div>
+                        <div>
+                          <dt className="text-slate-500">গড়</dt>
+                          <dd className="mt-1 font-semibold">
+                            {formatPrice((market.min + market.max) / 2)}
+                          </dd>
+                        </div>
+                      </dl>
+                    </article>
+                  ))}
+                </div>
+                <div className="hidden overflow-x-auto rounded-2xl border border-[#e4eae5] md:block">
+                  <table className="w-full min-w-[680px] border-collapse text-left text-sm">
+                    <thead className="bg-[#f5f8f5] text-slate-600">
+                      <tr>
+                        <th scope="col" className="px-4 py-3 font-semibold">বাজার</th>
+                        <th scope="col" className="px-4 py-3 font-semibold">বিভাগ</th>
+                        <th scope="col" className="px-4 py-3 text-right font-semibold">সর্বনিম্ন</th>
+                        <th scope="col" className="px-4 py-3 text-right font-semibold">সর্বোচ্চ</th>
+                        <th scope="col" className="px-4 py-3 text-right font-semibold">গড়</th>
                       </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+                    </thead>
+                    <tbody className="divide-y divide-[#e8ede9]">
+                      {product.markets.map((market) => (
+                        <tr key={`${market.market}-${market.division}`} className="hover:bg-[#fafcfa]">
+                          <th scope="row" className="px-4 py-3 font-medium text-slate-800">
+                            {market.market}
+                          </th>
+                          <td className="px-4 py-3 text-slate-600">{market.division}</td>
+                          <td className="px-4 py-3 text-right">{formatPrice(market.min)}</td>
+                          <td className="px-4 py-3 text-right">{formatPrice(market.max)}</td>
+                          <td className="px-4 py-3 text-right font-semibold">
+                            {formatPrice((market.min + market.max) / 2)}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </table>
+                </div>
+              </>
             ) : (
               <p className="rounded-xl bg-slate-50 p-4 text-sm text-slate-500">
                 এই পণ্যের বাজারভিত্তিক দাম এখনো পাওয়া যায়নি।

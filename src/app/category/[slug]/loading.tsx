@@ -1,6 +1,6 @@
 export default function LoadingCategoryPage() {
   return (
-    <div className="min-h-screen bg-[#f1f6f2] px-4 py-8 sm:py-10">
+    <main className="min-h-screen bg-[#f1f6f2] px-4 py-8 sm:py-10">
       <div className="mx-auto max-w-6xl animate-pulse">
         <div className="mb-7 flex items-center gap-4">
           <div className="size-14 rounded-2xl bg-slate-200" />
@@ -17,7 +17,7 @@ export default function LoadingCategoryPage() {
             <div key={item} className="h-56 rounded-2xl bg-white" />
           ))}
         </div>
-      </div>
     </div>
+    </main>
   );
 }
