@@ -148,7 +148,7 @@ export default function AuthForm({ mode, callbackURL }: AuthFormProps) {
           </label>
 
           <button
-            className="btn btn-success w-full text-white"
+            className="btn btn-success w-full text-white mt-4"
             disabled={isSubmitting}
             type="submit"
           >
