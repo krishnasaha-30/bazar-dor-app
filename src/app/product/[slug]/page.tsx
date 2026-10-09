@@ -1,8 +1,10 @@
 import Link from "next/link";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
+import { headers } from "next/headers";
 import type { Product } from "@/lib/api";
 import getProducts from "@/lib/api";
 import { formatBn, formatChange, formatPrice, formatUnit } from "@/lib/bn";
+import { auth } from "@/lib/auth";
 
 type ProductPageProps = {
   params: Promise<{ slug: string }>;
@@ -36,6 +38,15 @@ function PriceSummary({
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
+  const session = await auth.api.getSession({
+    headers: await headers(),
+  });
+
+  if (!session) {
+    const { slug } = await params;
+    redirect(`/signin?callbackURL=${encodeURIComponent(`/product/${slug}`)}`);
+  }
+
   const { slug } = await params;
   const products: Product[] = await getProducts();
   const product = products.find((item) => item.slug === slug);

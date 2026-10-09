@@ -8,9 +8,10 @@ import { authClient } from "@/lib/auth-client";
 
 type AuthFormProps = {
   mode: "signin" | "signup";
+  callbackURL: string;
 };
 
-export default function AuthForm({ mode }: AuthFormProps) {
+export default function AuthForm({ mode, callbackURL }: AuthFormProps) {
   const isSignUp = mode === "signup";
   const router = useRouter();
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -50,10 +51,10 @@ export default function AuthForm({ mode }: AuthFormProps) {
 
       if (isSignUp) {
         toast.success("অ্যাকাউন্ট তৈরি হয়েছে। এখন লগ ইন করুন।");
-        router.push("/signin");
+        router.push(`/signin?callbackURL=${encodeURIComponent(callbackURL)}`);
       } else {
         toast.success("সফলভাবে লগ ইন হয়েছে।");
-        router.push("/");
+        router.push(callbackURL);
       }
       router.refresh();
     } catch (error) {
@@ -70,7 +71,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
       window.localStorage.setItem("auth:social-login-pending", "true");
       const result = await authClient.signIn.social({
         provider,
-        callbackURL: `${window.location.origin}/`,
+        callbackURL: `${window.location.origin}${callbackURL}`,
       });
 
       if (result.error) {
@@ -188,7 +189,7 @@ export default function AuthForm({ mode }: AuthFormProps) {
           {isSignUp ? "আগে থেকেই অ্যাকাউন্ট আছে?" : "অ্যাকাউন্ট নেই?"}{" "}
           <Link
             className="font-semibold text-success underline-offset-4 hover:underline"
-            href={isSignUp ? "/signin" : "/signup"}
+            href={`${isSignUp ? "/signin" : "/signup"}?callbackURL=${encodeURIComponent(callbackURL)}`}
           >
             {isSignUp ? "সাইন ইন করুন" : "সাইন আপ করুন"}
           </Link>

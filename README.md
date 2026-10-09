@@ -34,6 +34,10 @@ To enable Google and GitHub sign-in, create OAuth apps with the callback URL
 client ID and secret values to `.env.local`. Use your deployed app's origin when
 configuring OAuth for production.
 
+Product detail pages require an authenticated session. Visitors are sent to
+sign-in and returned to the requested product after signing in or creating an
+account.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
