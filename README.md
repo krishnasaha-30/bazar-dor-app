@@ -38,6 +38,9 @@ Product detail pages require an authenticated session. Visitors are sent to
 sign-in and returned to the requested product after signing in or creating an
 account.
 
+Signed-in users can view their account details at `/profile` and update their
+name at `/profile/update`.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
