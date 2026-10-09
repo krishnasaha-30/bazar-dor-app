@@ -2,7 +2,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import BanglaDate from "./BanglaDate";
-
+import AuthActions from "./AuthActions";
 
 const Header = () => {
     return (
@@ -20,14 +20,7 @@ const Header = () => {
                     </span>
                 </Link>
 
-                <div className="flex w-full justify-end gap-2 sm:w-auto sm:gap-3">
-                    <Link href="/signin" className="btn btn-outline btn-success  btn-sm sm:btn-md">
-                        সাইন ইন
-                    </Link>
-                    <Link href="/signup" className="btn btn-active rounded-2 bg-green-500 text-white btn-success btn-sm sm:btn-md">
-                        সাইন আপ
-                    </Link>
-                </div>
+                <AuthActions />
             </div>
         </div>
     );

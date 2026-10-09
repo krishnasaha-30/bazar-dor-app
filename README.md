@@ -20,6 +20,20 @@ You can start editing the page by modifying `app/page.tsx`. The page auto-update
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
+## Authentication
+
+Authentication uses Better Auth with MongoDB. Copy `.env.example` to `.env.local`,
+set `MONGODB_URI` to your MongoDB connection string, and optionally change
+`MONGODB_DATABASE` to select the database name. Set `BETTER_AUTH_SECRET` to a
+random secret of at least 32 characters. Email/password sign-in works without
+OAuth credentials.
+
+To enable Google and GitHub sign-in, create OAuth apps with the callback URL
+`http://localhost:3000/api/auth/callback/google` and
+`http://localhost:3000/api/auth/callback/github`, respectively, then add the
+client ID and secret values to `.env.local`. Use your deployed app's origin when
+configuring OAuth for production.
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
