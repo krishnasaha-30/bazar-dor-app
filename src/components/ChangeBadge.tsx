@@ -1,9 +1,9 @@
 export default function ChangeBadge({ percent }: { percent: number }) {
   const tone =
     percent > 0
-      ? "bg-[#dff6e5] text-[#1f7a3d]"
+      ? "bg-[#fde7e7] text-[#c73d3d]"
       : percent < 0
-        ? "bg-[#fde7e7] text-[#c73d3d]"
+        ? " bg-[#dff6e5] text-[#1f7a3d]"
         : "bg-[#ececec] text-[#4b5563]";
 
   const value = `${Math.abs(percent).toFixed(1)}%`;
