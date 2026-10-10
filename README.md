@@ -4,7 +4,7 @@
 
 **প্রয়োজনীয় পণ্যের দাম এক নজরে।**
 
-[Live Site](#) · [GitHub Repository](#)
+[Live Site](https://bazar-dor-app-theta.vercel.app/) 
 
 </div>
 
