@@ -2,6 +2,7 @@ import Hero from "@/components/Hero";
 import getProducts, { type Product } from "@/lib/api";
 import ProductGrid from "@/components/ProductGrid";
 import { Suspense } from "react";
+import { formatBn } from "@/lib/bn";
 
 // "id": 1,
 // "slug": "sorno-machi-chal",
@@ -66,6 +67,9 @@ async function ProductSections() {
         <h2 className="text-xl font-bold sm:text-2xl">সব পণ্য</h2>
         <p className="mb-5 mt-1 text-sm leading-6 text-base-content/70 sm:text-base">
           নিত্যপ্রয়োজনীয় সব পণ্যের আজকের দাম ও দামের পরিবর্তন।
+        </p>
+        <p className="mb-4 text-sm text-base-content/60">
+          মোট {formatBn(products.length)}টি পণ্য দেখানো হচ্ছে
         </p>
         {products.length ? (
           <ProductGrid products={products} />

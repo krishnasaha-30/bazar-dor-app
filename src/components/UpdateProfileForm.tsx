@@ -61,7 +61,7 @@ export default function UpdateProfileForm({
             />
           </label>
           <button
-            className="btn btn-success btn-sm w-full text-white"
+            className="btn btn-success btn-sm w-full text-white mt-5"
             disabled={isSubmitting}
             type="submit"
           >

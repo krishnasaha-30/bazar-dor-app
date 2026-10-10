@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import type { Product } from "@/lib/api";
+import { formatBn } from "@/lib/bn";
 import ProductGrid from "./ProductGrid";
 
 type SortOrder = "default" | "price-ascending" | "price-descending";
@@ -24,6 +25,9 @@ export default function CategoryProductList({
 
   return (
     <>
+      <p className="mb-4 text-sm text-slate-500">
+        মোট {formatBn(sortedProducts.length)}টি পণ্য দেখানো হচ্ছে
+      </p>
       <div className="mb-5 flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-end">
         <label htmlFor="category-sort" className="text-sm font-medium text-slate-600">
           সাজান
